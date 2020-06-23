@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlatformController : MonoBehaviour
 {
+    public int angle;
     private bool popped;
     private float speed = 16;
     private MeshCollider collider;
@@ -17,7 +18,8 @@ public class PlatformController : MonoBehaviour
         firstPos = transform.position;
     }
 
-    void Awake() {
+    void Awake() 
+    {
         collider = GetComponent<MeshCollider>();  
     }
 

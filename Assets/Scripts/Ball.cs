@@ -11,7 +11,7 @@ public class Ball : MonoBehaviour
 
     private LevelController levelController;
 
-    private bool pressing;
+    public bool pressing;
     public int breakCount = 0;
 
     // Start is called before the first frame update
@@ -24,13 +24,20 @@ public class Ball : MonoBehaviour
 
     void Update() {
         if (Input.GetMouseButtonDown(0))
-        {    
+        {   
             pressing = true;
             rigidbody.velocity = Vector3.down * jumpPower;
         }
         else if (Input.GetMouseButtonUp(0))
-        {
             pressing = false;
+
+        Debug.DrawRay(transform.position, Vector3.down, Color.red);
+    }
+    
+    void FixedUpdate() {
+        if (rigidbody.velocity.magnitude > 7)
+        {
+            rigidbody.velocity = rigidbody.velocity.normalized * 7;
         }
 
         if (pressing)
@@ -45,13 +52,6 @@ public class Ball : MonoBehaviour
                 }
             }
         }
-
-        if (rigidbody.velocity.magnitude > 7)
-        {
-            rigidbody.velocity = rigidbody.velocity.normalized * 7;
-        }
-
-        Debug.DrawRay(transform.position, Vector3.down, Color.red);
     }
 
     void jump()
@@ -60,6 +60,7 @@ public class Ball : MonoBehaviour
         audio.pitch = 1;
         audio.Play();
         rigidbody.velocity = Vector3.up * jumpPower;
+        Vibration.VibratePeek();
     }
 
     void popFloor()
@@ -68,6 +69,7 @@ public class Ball : MonoBehaviour
         audio.pitch += 0.03f;
         audio.Play();
         breakCount++;
+        Vibration.VibratePeek();
     }
 
     void OnCollisionEnter(Collision collision)
