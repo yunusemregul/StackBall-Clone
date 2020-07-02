@@ -7,7 +7,7 @@ public class Ball : MonoBehaviour
 {
     private Rigidbody rigidbody;
     private AudioSource audio;
-    public float jumpPower = 5;
+    public float jumpPower = 10;
 
     private LevelController levelController;
 
@@ -35,13 +35,13 @@ public class Ball : MonoBehaviour
     }
     
     void FixedUpdate() {
-        if (rigidbody.velocity.magnitude > 7)
-        {
-            rigidbody.velocity = rigidbody.velocity.normalized * 7;
-        }
-
         if (pressing)
         {
+            if (rigidbody.velocity.magnitude > 7)
+            {
+                rigidbody.velocity = rigidbody.velocity.normalized * 7;
+            }
+
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit, .5f))
             {

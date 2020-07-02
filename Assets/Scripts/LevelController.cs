@@ -32,7 +32,6 @@ public class LevelController : MonoBehaviour
     void generateLevel()
     {
         int lastRandomFloor = floorCount;
-        int angleToNotBlock = 30;
         for (int floor = 0; floor < floorCount; floor++)
         {
             floors[floor] = new GameObject[360/platformController.angle];
